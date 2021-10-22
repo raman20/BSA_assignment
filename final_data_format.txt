@@ -1,0 +1,29 @@
+{
+    "Country Name 1" : {
+        
+        "Year 1" : {
+            "Gas 1": "emission value",
+            "Gas 2": "emission value",
+            ... ,
+            ... ,
+            ... ,
+        },
+
+        "Year 2" : {
+                "Gas 1": "emission value",
+                "Gas 2": "emission value",
+                ... ,
+                ... ,
+                ... ,
+        },
+
+        ... ,
+        ... ,
+        ... 
+    },
+    
+    ... ,
+    ... ,
+    ...
+
+}
