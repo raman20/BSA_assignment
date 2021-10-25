@@ -1,4 +1,4 @@
-fs = require("fs");
+let fs = require("fs");
 
 let rawDataFilePath = "../raw_data.csv";
 let finalJsonFilePath = "./final_data.json";
