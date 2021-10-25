@@ -1,5 +1,4 @@
 import { useState } from "react";
-//import DataInput from "./components/data_input/data_input";
 import Chart from "./components/chart/chart";
 import Map from "./components/map/map";
 import CountrySelector from "./components/data_input/country_selector";
