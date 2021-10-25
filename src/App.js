@@ -38,38 +38,8 @@ function App() {
         );
     }
 
-    /*let chartMapData = {
-        DATA: DATA,
-        countryList: Array.from(countrySet),
-        paramList: Array.from(paramSet),
-        startYear: startYear,
-        endYear: endYear,
-    };
-
-    let countrySelectorProps = {
-        countrySet: countrySet,
-        removeCountry: removeCountry,
-        addCountry: addCountry,
-    };
-
-    let paramSelectorProps = {
-        paramSet: paramSet,
-        removeParam: removeParam,
-        addParam: addParam,
-    };
-
-    let timePeriodProps = {
-        setStartYear: setStartYear,
-        setEndYear: setEndYear,
-    };*/
-
     return (
         <div className="App">
-            {/*<DataInput
-                countrySelectorProps={countrySelectorProps}
-                paramSelectorProps={paramSelectorProps}
-                timePeriodSelectorProps={timePeriodProps}
-            />*/}
             <div>
                 <CountrySelector
                     countrySet={countrySet}
