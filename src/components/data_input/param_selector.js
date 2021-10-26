@@ -37,13 +37,18 @@ function ParamDropdown(props) {
             <form>
                 <select onChange={addParam}>
                     <option value="">Select Params</option>
-                    <option value="co2">Carbon Dioxide</option>
-                    <option value="n2o">Nitrous Oxide</option>
-                    <option value="ch4">Methane</option>
-                    <option value="nf3">nitrogen triflouride</option>
-                    <option value="sf6">Sulphur Hexafluoride</option>
-                    <option value="ghghs">All Green House Gas</option>
-                    <option value="hfcs_pfcs_mix">Mix of HFCs and PFCs</option>
+                    {props.allParam.forEach((param) => {
+                        let paramName = param.toUpperCase();
+                        if (param === "hfcs_pfcs_mix")
+                            paramName = "Mix of hfcs & Pfcs";
+                        else if (param === "ghgs")
+                            paramName = "All green house gases";
+                        return (
+                            <option key={param} value={param}>
+                                {paramName}
+                            </option>
+                        );
+                    })}
                 </select>
             </form>
         </div>

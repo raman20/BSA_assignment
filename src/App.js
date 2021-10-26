@@ -5,7 +5,7 @@ import CountrySelector from "./components/data_input/country_selector";
 import ParamSelector from "./components/data_input/param_selector";
 import TimePeriod from "./components/data_input/time_period";
 import "./App.css";
-let DATA = require("./final_data.json");
+let APP_DATA = require("./final_APP_data.json");
 
 function App() {
     const [countrySet, setCountrySet] = useState(new Set());
@@ -39,6 +39,16 @@ function App() {
         );
     }
 
+    function addStartYear(year) {
+        if (endYear < year)
+            alert("End Year can't be lesser than start year!!!");
+        else setStartYear(year);
+    }
+    function addEndYear(year) {
+        if (startYear > year) alert("Start Year can't be ahead of End year!!!");
+        else setEndYear(year);
+    }
+
     return (
         <div id="App">
             <div id="Data_Selector_Section">
@@ -46,27 +56,30 @@ function App() {
                     countrySet={countrySet}
                     addCountry={addCountry}
                     removeCountry={removeCountry}
+                    allCountries={Object.keys(APP_DATA.data)}
                 />
                 <ParamSelector
                     paramSet={paramSet}
                     addParam={addParam}
                     removeParam={removeParam}
+                    allParam={APP_DATA.gases}
                 />
                 <TimePeriod
-                    setStartYear={setStartYear}
-                    setEndYear={setEndYear}
+                    addStartYear={addStartYear}
+                    addEndYear={addEndYear}
+                    allYears={APP_DATA.years}
                 />
             </div>
             <div id="Visualiser">
                 <Chart
-                    DATA={DATA}
+                    DATA={APP_DATA.data}
                     countryList={Array.from(countrySet)}
                     paramList={Array.from(paramSet)}
                     startYear={startYear}
                     endYear={endYear}
                 />
                 <Map
-                    DATA={DATA}
+                    DATA={APP_DATA.data}
                     countryList={Array.from(countrySet)}
                     paramList={Array.from(paramSet)}
                     startYear={startYear}
