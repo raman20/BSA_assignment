@@ -3,6 +3,22 @@ let fs = require("fs");
 let rawDataFilePath = "./raw_data.csv";
 let finalJsonFilePath = "./final_data.json";
 
+fs.readFile(rawDataFilePath, "utf8", (err, raw_data) => {
+    if (err) console.log(err);
+    let final_json = cleanData(raw_data);
+
+    fs.writeFile(
+        finalJsonFilePath,
+        JSON.stringify(final_json),
+        "utf8",
+        (err) => {
+            err
+                ? console.log(`error -> ${err}`)
+                : console.log("file writtern successfully!");
+        }
+    );
+});
+
 function cleanData(raw_data) {
     raw_data = raw_data.split("\n");
     raw_data = raw_data.map((elem) => elem.split(","));
@@ -43,19 +59,3 @@ function cleanData(raw_data) {
 
     return final_json;
 }
-
-fs.readFile(rawDataFilePath, "utf8", (err, raw_data) => {
-    if (err) console.log(err);
-    let final_json = cleanData(raw_data);
-
-    fs.writeFile(
-        finalJsonFilePath,
-        JSON.stringify(final_json),
-        "utf8",
-        (err) => {
-            err
-                ? console.log(`error -> ${err}`)
-                : console.log("file writtern successfully!");
-        }
-    );
-});
