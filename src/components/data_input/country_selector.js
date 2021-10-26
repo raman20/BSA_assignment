@@ -7,7 +7,10 @@ export default function CountrySelector(props) {
                 countrySet={props.countrySet}
                 removeCountry={props.removeCountry}
             />
-            <CountryDropdown addCountry={props.addCountry} />
+            <CountryDropdown
+                addCountry={props.addCountry}
+                allCountries={props.allCountries}
+            />
         </div>
     );
 }

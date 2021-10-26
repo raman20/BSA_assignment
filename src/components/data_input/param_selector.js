@@ -7,7 +7,10 @@ export default function ParamSelector(props) {
                 paramSet={props.paramSet}
                 removeParam={props.removeParam}
             />
-            <ParamDropdown addParam={props.addParam} />
+            <ParamDropdown
+                addParam={props.addParam}
+                allParam={props.allParams}
+            />
         </div>
     );
 }
