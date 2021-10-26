@@ -4,7 +4,7 @@ export default function CountrySelector(props) {
     return (
         <div className="Data_Selector">
             <CountryViewer
-                countrySet={props.countrySet}
+                countryList={props.countryList}
                 removeCountry={props.removeCountry}
             />
             <CountryDropdown
@@ -18,7 +18,7 @@ export default function CountrySelector(props) {
 function CountryViewer(props) {
     return (
         <div className="Data_Viewer">
-            {Array.from(props.countrySet).map((element) => (
+            {props.countryList.map((element) => (
                 <Country
                     key={element}
                     countryName={element}
@@ -40,7 +40,7 @@ function CountryDropdown(props) {
             <form>
                 <select onChange={addCountry}>
                     <option value="">Select Country</option>
-                    {props.allCountries.forEach((country) => {
+                    {props.allCountries.map((country) => {
                         return (
                             <option key={country} value={country}>
                                 {country}

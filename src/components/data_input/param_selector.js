@@ -4,7 +4,7 @@ export default function ParamSelector(props) {
     return (
         <div className="Data_Selector">
             <ParamViewer
-                paramSet={props.paramSet}
+                paramList={props.paramList}
                 removeParam={props.removeParam}
             />
             <ParamDropdown
@@ -18,7 +18,7 @@ export default function ParamSelector(props) {
 function ParamViewer(props) {
     return (
         <div className="Data_Viewer">
-            {Array.from(props.paramSet).map((element) => (
+            {props.paramList.map((element) => (
                 <Param
                     key={element}
                     paramName={element}
@@ -40,7 +40,7 @@ function ParamDropdown(props) {
             <form>
                 <select onChange={addParam}>
                     <option value="">Select Params</option>
-                    {props.allParam.forEach((param) => {
+                    {props.allParam.map((param) => {
                         let paramName = param.toUpperCase();
                         if (param === "hfcs_pfcs_mix")
                             paramName = "Mix of hfcs & Pfcs";

@@ -40,14 +40,13 @@ function App() {
     }
 
     function addStartYear(year) {
-        if (endYear < year) 
+        if (endYear < year)
             alert("End Year can't be lesser than start year!!!");
         else setStartYear(year);
     }
 
     function addEndYear(year) {
-        if (startYear > year) 
-            alert("Start Year can't be ahead of End year!!!");
+        if (startYear > year) alert("Start Year can't be ahead of End year!!!");
         else setEndYear(year);
     }
 
@@ -55,13 +54,13 @@ function App() {
         <div id="App">
             <div id="Data_Selector_Section">
                 <CountrySelector
-                    countrySet={countrySet}
+                    countryList={Array.from(countrySet)}
                     addCountry={addCountry}
                     removeCountry={removeCountry}
                     allCountries={Object.keys(APP_DATA.data)}
                 />
                 <ParamSelector
-                    paramSet={paramSet}
+                    paramList={Array.from(paramSet)}
                     addParam={addParam}
                     removeParam={removeParam}
                     allParam={APP_DATA.gases}
