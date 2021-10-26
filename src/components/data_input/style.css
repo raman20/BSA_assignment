@@ -1,0 +1,38 @@
+.Data_Selector {
+    display: flex;
+    flex-direction: column;
+}
+
+.Data_Viewer {
+    width: 300px;
+    min-height: 100px;
+    border: 0.5px solid black;
+    border-radius: 10px;
+    background-color: rgba(231, 226, 226, 0.835);
+    padding: 2px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Data_Dropdown {
+    margin-top: 10px;
+}
+
+.Data_Dropdown select {
+    width: 300px;
+}
+
+.Data_Item {
+    font-size: 15px;
+    color: white;
+    background-color: crimson;
+    border-radius: 10px;
+    border: 0.2px solid rgb(251, 251, 251);
+    padding: 2px;
+}
+
+.Time_Period {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
