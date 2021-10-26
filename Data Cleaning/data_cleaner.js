@@ -1,6 +1,6 @@
 let fs = require("fs");
 
-let rawDataFilePath = "../raw_data.csv";
+let rawDataFilePath = "./raw_data.csv";
 let finalJsonFilePath = "./final_data.json";
 
 function cleanData(raw_data) {
