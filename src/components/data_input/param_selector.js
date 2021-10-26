@@ -9,7 +9,7 @@ export default function ParamSelector(props) {
             />
             <ParamDropdown
                 addParam={props.addParam}
-                allParam={props.allParams}
+                allParam={props.allParam}
             />
         </div>
     );
