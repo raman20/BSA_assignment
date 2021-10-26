@@ -2,7 +2,7 @@ import { Chart } from "react-google-charts";
 import { useState, useEffect } from "react";
 export default function Map(props) {
     const [mapData, setMapData] = useState();
-    const [msg, setMsg] = useState("Please Select Countries and Gases!!!");
+    const [msg, setMsg] = useState("Map -> Please Select Countries and Parameters!!!");
 
     useEffect(() => {
         let mapProps = {
@@ -18,12 +18,14 @@ export default function Map(props) {
         if (props.countryList.length && props.paramList.length) {
             if (props.paramList.length > 2) {
                 setMsg(
-                    "Sorry, Google Geo Chart dont Support more than 2 parameters!!!"
+                    "Map -> Sorry, Google Geo Chart dont Support more than 2 parameters!!!"
                 );
                 return;
             }
 
-            let labels = ["Country"].concat(...[props.paramList]);
+            let labels = ["Country"].concat(
+                ...props.paramList.map((elem) => `Total ${elem}`)
+            );
             mapProps.coordinates.push(labels);
             for (let country of props.countryList) {
                 let cord = new Array(props.paramList.length + 1).fill(0);
@@ -50,7 +52,7 @@ export default function Map(props) {
             setMapData(mapProps);
             setMsg("");
         } else {
-            setMsg("Please Select Countries and Gases!!!");
+            setMsg("Map -> Please Select Countries and Parameters!!!");
         }
     }, [
         props.countryList,

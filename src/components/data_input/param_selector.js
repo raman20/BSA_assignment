@@ -1,6 +1,8 @@
+import "./style.css";
+
 export default function ParamSelector(props) {
     return (
-        <div>
+        <div className="Data_Selector">
             <ParamViewer
                 paramSet={props.paramSet}
                 removeParam={props.removeParam}
@@ -12,7 +14,7 @@ export default function ParamSelector(props) {
 
 function ParamViewer(props) {
     return (
-        <div>
+        <div className="Data_Viewer">
             {Array.from(props.paramSet).map((element) => (
                 <Param
                     key={element}
@@ -31,7 +33,7 @@ function ParamDropdown(props) {
     };
 
     return (
-        <div>
+        <div className="Data_Dropdown">
             <form>
                 <select onChange={addParam}>
                     <option value="">Select Params</option>
@@ -52,5 +54,11 @@ function Param(props) {
     let removeParam = (event) => {
         props.removeParam(event.target.innerText.split(" x")[0]);
     };
-    return <span onClick={removeParam}>{props.paramName} x</span>;
+    return (
+        <div style={{ height: "max-content" }}>
+            <span className="Data_Item" onClick={removeParam}>
+                {props.paramName} x
+            </span>
+        </div>
+    );
 }

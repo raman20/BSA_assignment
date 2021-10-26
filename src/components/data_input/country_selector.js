@@ -1,6 +1,8 @@
+import "./style.css";
+
 export default function CountrySelector(props) {
     return (
-        <div>
+        <div className="Data_Selector">
             <CountryViewer
                 countrySet={props.countrySet}
                 removeCountry={props.removeCountry}
@@ -12,7 +14,7 @@ export default function CountrySelector(props) {
 
 function CountryViewer(props) {
     return (
-        <div>
+        <div className="Data_Viewer">
             {Array.from(props.countrySet).map((element) => (
                 <Country
                     key={element}
@@ -31,7 +33,7 @@ function CountryDropdown(props) {
     };
 
     return (
-        <div>
+        <div className="Data_Dropdown">
             <form>
                 <select onChange={addCountry}>
                     <option value="">Select Country</option>
@@ -92,5 +94,11 @@ function Country(props) {
     let removeCountry = (event) => {
         props.removeCountry(event.target.innerText.split(" x")[0]);
     };
-    return <span onClick={removeCountry}>{props.countryName} x</span>;
+    return (
+        <div style={{"height":'max-content'}}>
+            <span className="Data_Item" onClick={removeCountry}>
+                {props.countryName} x
+            </span>
+        </div>
+    );
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function LineChart(props) {
     const [chartData, setChartData] = useState();
-    const [msg, setMsg] = useState("please Select countries and Parameters!!!");
+    const [msg, setMsg] = useState("Chart -> please Select countries and Parameters!!!");
 
     useEffect(() => {
         if (props.countryList.length && props.paramList.length) {
@@ -35,11 +35,11 @@ export default function LineChart(props) {
                 );
             } else {
                 setMsg(
-                    "only select single Parameter for multiple countries!!!"
+                    "Chart -> only select single Parameter for multiple countries!!!"
                 );
             }
         } else {
-            setMsg("Please Select Countries and Parameters!!!");
+            setMsg("Chart -> Please Select Countries and Parameters!!!");
         }
     }, [
         props.DATA,

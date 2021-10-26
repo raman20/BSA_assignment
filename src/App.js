@@ -4,6 +4,7 @@ import Map from "./components/map/map";
 import CountrySelector from "./components/data_input/country_selector";
 import ParamSelector from "./components/data_input/param_selector";
 import TimePeriod from "./components/data_input/time_period";
+import "./App.css";
 let DATA = require("./final_data.json");
 
 function App() {
@@ -39,8 +40,8 @@ function App() {
     }
 
     return (
-        <div className="App">
-            <div>
+        <div id="App">
+            <div id="Data_Selector_Section">
                 <CountrySelector
                     countrySet={countrySet}
                     addCountry={addCountry}
@@ -56,20 +57,22 @@ function App() {
                     setEndYear={setEndYear}
                 />
             </div>
-            <Chart
-                DATA={DATA}
-                countryList={Array.from(countrySet)}
-                paramList={Array.from(paramSet)}
-                startYear={startYear}
-                endYear={endYear}
-            />
-            <Map
-                DATA={DATA}
-                countryList={Array.from(countrySet)}
-                paramList={Array.from(paramSet)}
-                startYear={startYear}
-                endYear={endYear}
-            />
+            <div id="Visualiser">
+                <Chart
+                    DATA={DATA}
+                    countryList={Array.from(countrySet)}
+                    paramList={Array.from(paramSet)}
+                    startYear={startYear}
+                    endYear={endYear}
+                />
+                <Map
+                    DATA={DATA}
+                    countryList={Array.from(countrySet)}
+                    paramList={Array.from(paramSet)}
+                    startYear={startYear}
+                    endYear={endYear}
+                />
+            </div>
         </div>
     );
 }
