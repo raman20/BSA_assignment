@@ -9,26 +9,37 @@ function cleanData(raw_data) {
     raw_data = raw_data.filter((elem) => elem.length === 4);
     raw_data.shift();
 
-    let final_json = {};
-    let re = "(ghgs|co2|ch4|n2o|nf3|sf6|hfcs|pfcs|mix)(?=.*emissions)";
+    let final_json = {
+        data: {},
+        gases: new Set(),
+        years: new Set(),
+    };
+    let allGases = new Set();
+    let allYears = new Set();
+
+    let regex = "(ghgs|co2|ch4|n2o|nf3|sf6|hfcs|pfcs|mix)(?=.*emissions)";
 
     raw_data.forEach((elem) => {
         let [country, year, value, category] = elem;
-        if (!final_json.hasOwnProperty(country)) {
-            final_json[country] = {};
+        if (!final_json.data.hasOwnProperty(country)) {
+            final_json.data[country] = {};
         }
 
-        if (!final_json[country].hasOwnProperty(year)) {
-            final_json[country][year] = {};
+        if (!final_json.data[country].hasOwnProperty(year)) {
+            final_json.data[country][year] = {};
         }
 
-        let gas = category.match(re);
-        if (gas[0] === "mix") {
-            final_json[country][year]["hfcs_pfcs_mix"] = parseFloat(value);
-        } else {
-            final_json[country][year][gas[0]] = parseFloat(value);
+        let gasData = category.match(regex);
+        let gas = gasData[0];
+        if (gas === "mix") {
+            gas = "hfcs_pfcs_mix";
         }
+        final_json.data[country][year][gas] = parseFloat(value);
+        allGases.add(gas);
+        allYears.add(year);
     });
+    final_json.gases = Array.from(allGases);
+    final_json.years = Array.from(allYears);
 
     return final_json;
 }
