@@ -2,13 +2,15 @@ import { Chart } from "react-google-charts";
 import { useState, useEffect } from "react";
 export default function Map(props) {
     const [mapData, setMapData] = useState();
-    const [msg, setMsg] = useState("Map -> Please Select Countries and Parameters!!!");
+    const [msg, setMsg] = useState(
+        "Map -> Please Select Countries and Parameters!!!"
+    );
 
     useEffect(() => {
         let mapProps = {
             coordinates: [],
             options: {
-                colorAxis: { colors: ["green", "black"] },
+                colorAxis: { colors: ["#00853f", "black", "#e31b23"] },
                 backgroundColor: "#81d4fa",
                 datalessRegionColor: "#f5f5f5",
             },
