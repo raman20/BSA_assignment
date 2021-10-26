@@ -5,7 +5,7 @@ import CountrySelector from "./components/data_input/country_selector";
 import ParamSelector from "./components/data_input/param_selector";
 import TimePeriod from "./components/data_input/time_period";
 import "./App.css";
-let APP_DATA = require("./final_APP_data.json");
+let APP_DATA = require("./final_data.json");
 
 function App() {
     const [countrySet, setCountrySet] = useState(new Set());
