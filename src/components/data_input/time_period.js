@@ -8,7 +8,7 @@ export default function TimePeriod(props) {
                     {" "}
                     Start Year{" "}
                     <select
-                        defaultValue="1990"
+                        defaultValue={1990}
                         onChange={(event) =>
                             props.addStartYear(parseInt(event.target.value))
                         }
@@ -26,7 +26,7 @@ export default function TimePeriod(props) {
                     {" "}
                     End Year{" "}
                     <select
-                        defaultValue="1990"
+                        defaultValue={1990}
                         onChange={(event) =>
                             props.endStartYear(parseInt(event.target.value))
                         }
