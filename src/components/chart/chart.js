@@ -92,7 +92,7 @@ function coordinateGenerator(
     let chartLabels = ["x"].concat(multiParam);
     chartProps.coordinates.push(chartLabels);
 
-    for (let year = parseInt(startYear); year <= parseInt(endYear); year++) {
+    for (let year = startYear; year <= endYear; year++) {
         let cord = [year];
         for (let i of multiParam) {
             let emission;

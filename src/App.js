@@ -40,12 +40,14 @@ function App() {
     }
 
     function addStartYear(year) {
-        if (endYear < year)
+        if (endYear < year) 
             alert("End Year can't be lesser than start year!!!");
         else setStartYear(year);
     }
+
     function addEndYear(year) {
-        if (startYear > year) alert("Start Year can't be ahead of End year!!!");
+        if (startYear > year) 
+            alert("Start Year can't be ahead of End year!!!");
         else setEndYear(year);
     }
 
