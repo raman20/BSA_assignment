@@ -26,7 +26,7 @@ node data_cleaner.js
 npm start
 ```
 
-# React Components
+# Main React Components
 
 ## DataSelector
 
