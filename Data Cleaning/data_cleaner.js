@@ -4,7 +4,11 @@ let rawDataFilePath = "./raw_data.csv";
 let finalJsonFilePath = "./final_data.json";
 
 fs.readFile(rawDataFilePath, "utf8", (err, raw_data) => {
-    if (err) console.log(err);
+    if (err) {
+        console.log(err);
+        return;
+    }
+
     let final_json = cleanData(raw_data);
 
     fs.writeFile(
@@ -20,6 +24,7 @@ fs.readFile(rawDataFilePath, "utf8", (err, raw_data) => {
 });
 
 function cleanData(raw_data) {
+    /**/
     raw_data = raw_data.split("\n");
     raw_data = raw_data.map((elem) => elem.split(","));
     raw_data = raw_data.filter((elem) => elem.length === 4);
