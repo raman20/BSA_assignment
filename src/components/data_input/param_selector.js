@@ -9,7 +9,7 @@ export default function ParamSelector(props) {
             />
             <ParamDropdown
                 addParam={props.addParam}
-                allParam={props.allParam}
+                allParams={props.allParams}
             />
         </div>
     );
@@ -40,7 +40,7 @@ function ParamDropdown(props) {
             <form>
                 <select onChange={addParam}>
                     <option value="">Select Params</option>
-                    {props.allParam.map((param) => {
+                    {props.allParams.map((param) => {
                         let paramName = param.toUpperCase();
                         if (param === "hfcs_pfcs_mix")
                             paramName = "Mix of hfcs & Pfcs";
