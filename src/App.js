@@ -120,8 +120,8 @@ function getStateFromUrl() {
 
 function setStateInUrl(countryList, paramList, startYear, endYear) {
     let urlState = `/?`;
-    urlState += `countryList=[${countryList}]`;
-    urlState += `&paramList=[${paramList}]`;
+    urlState += `countryList=${JSON.stringify(countryList)}`;
+    urlState += `&paramList=${JSON.stringify(paramList)}`;
     urlState += `&startYear=${startYear}&endYear=${endYear}`;
     window.history.pushState({}, "", urlState);
 }
