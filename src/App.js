@@ -8,7 +8,7 @@ import "./App.css";
 let APP_DATA = require("./final_data.json");
 
 function App() {
-    const [countrySet, setCountrySet] = useState(new Set());
+    const [countrySet, setCountrySet] = useState(new Set());    // using set to avoid duplicates
     const [paramSet, setParamSet] = useState(new Set());
     const [startYear, setStartYear] = useState("1990");
     const [endYear, setEndYear] = useState("1990");
@@ -38,7 +38,10 @@ function App() {
                 new Set([...prevParamSet].filter((elem) => elem !== param))
         );
     }
+
+    // effect after mounting
     useEffect(() => {
+        // Retrieves state from the URL after mounting, only if available.
         let urlState = getStateFromUrl();
         if (Object.keys(urlState).length > 1) {
             setCountrySet(new Set(JSON.parse(urlState.countryList)));
@@ -48,6 +51,7 @@ function App() {
         }
     }, []);
 
+    // side Effect for reflecting app state to the URL
     useEffect(() => {
         setStateInUrl(
             Array.from(countrySet),
@@ -57,10 +61,11 @@ function App() {
         );
     }, [countrySet, paramSet, startYear, endYear]);
 
+    // checking if start year is lesser or not
+    // else can't be able to plot data on map & chart
     useEffect(() => {
         if (startYear > endYear) {
             setEndYear(startYear);
-            //alert("End Year can't be lesser than start year!!!");
         }
     }, [startYear, endYear]);
 
@@ -109,17 +114,20 @@ function App() {
 
 export default App;
 
+// extracts and parse the URL encoded query parameters
 function getStateFromUrl() {
-    let url = window.location.search;
-    var query = url.substr(1);
-    var urlState = {};
+    let query = window.location.search; //-> "/?param1=value&param2=val..."
+    query = query.substr(1);
+
+    let urlState = {};
     query.split("&").forEach(function (part) {
         var item = part.split("=");
-        urlState[item[0]] = decodeURIComponent(item[1]);
+        urlState[item[0]] = window.decodeURIComponent(item[1]); // decodes the url encoding of query param
     });
     return urlState;
 }
 
+// pushing the state changes to url using history API
 function setStateInUrl(countryList, paramList, startYear, endYear) {
     let urlState = `/?`;
     urlState += `countryList=${JSON.stringify(countryList)}`;

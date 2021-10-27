@@ -40,12 +40,12 @@ function cleanData(raw_data) {
         years: new Set(),
     };
     let allParams = new Set();   //storing all gases
-    let allYears = new Set();    //stroing all years 
+    let allYears = new Set();    //storing all years 
 
     /*
-        regular expression for extracting parameter symbols from the raw data,
+        regular expression for extracting the parameter symbols from the raw data,
         all the parameters symbols comes before "emissions" keyword and 
-        "emissions" keyword is occuring in every row of "category" column
+        "emissions" keyword is occuring in every row of "category" column of csv data
 
         so, it looks for the symbols upto the "emissions" keyword only
     */
