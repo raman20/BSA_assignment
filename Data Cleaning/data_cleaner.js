@@ -1,7 +1,9 @@
+// Data cleaning script
+
 let fs = require("fs");
 
 let rawDataFilePath = "./raw_data.csv";
-let finalJsonFilePath = "./final_data.json";
+let finalJsonFilePath = "./clean_data.json";
 
 fs.readFile(rawDataFilePath, "utf8", (err, raw_data) => {
     if (err) {
@@ -34,12 +36,12 @@ function cleanData(raw_data) {
     raw_data = raw_data.filter((elem) => elem.length === 4);    //filtered the empty rows
     raw_data.shift();                                           //removed the raw data headers
 
-    let final_json = {
+    let clean_data = {
         data: {},
         params: new Set(),
         years: new Set(),
     };
-    let allParams = new Set();   //storing all gases
+    let allParams = new Set();   //storing all gases, for rendering dropdowns 
     let allYears = new Set();    //storing all years 
 
     /*
@@ -53,12 +55,12 @@ function cleanData(raw_data) {
 
     raw_data.forEach((elem) => {
         let [country, year, value, category] = elem;
-        if (!final_json.data.hasOwnProperty(country)) {
-            final_json.data[country] = {};
+        if (!clean_data.data.hasOwnProperty(country)) {
+            clean_data.data[country] = {};
         }
 
-        if (!final_json.data[country].hasOwnProperty(year)) {
-            final_json.data[country][year] = {};
+        if (!clean_data.data[country].hasOwnProperty(year)) {
+            clean_data.data[country][year] = {};
         }
 
         let gasData = category.match(regex);
@@ -66,12 +68,12 @@ function cleanData(raw_data) {
         if (gas === "mix") {
             gas = "hfcs_pfcs_mix";
         }
-        final_json.data[country][year][gas] = parseFloat(value);
+        clean_data.data[country][year][gas] = parseFloat(value);
         allParams.add(gas);
         allYears.add(year);
     });
 
-    final_json.params = Array.from(allParams);
-    final_json.years = Array.from(allYears);
-    return final_json;
+    clean_data.params = Array.from(allParams);
+    clean_data.years = Array.from(allYears);
+    return clean_data;
 }
