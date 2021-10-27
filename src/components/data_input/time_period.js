@@ -8,17 +8,17 @@ export default function TimePeriod(props) {
     function setStartYear(event) {
         let inputYear = event.target.value;
         if (endYearRef.current.value < inputYear) {
-            alert("Start year can't be Greater than Start Year!!!");
             endYearRef.current.value = inputYear;
-        } else props.setStartYear(event.target.value);
+        }
+        props.setStartYear(event.target.value);
     }
 
     function setEndYear(event) {
         let inputYear = event.target.value;
         if (startYearRef.current.value > inputYear) {
-            alert("End year can't be lesser than Start Year!!!");
             endYearRef.current.value = startYearRef.current.value;
-        } else props.setEndYear(event.target.value);
+        }
+        props.setEndYear(event.target.value);
     }
 
     return (
