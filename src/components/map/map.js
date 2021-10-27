@@ -50,7 +50,6 @@ export default function Map(props) {
                 }
                 mapProps.coordinates.push(cord);
             }
-            console.log(mapProps);
             setMapData(mapProps);
             setMsg("");
         } else {
