@@ -39,17 +39,6 @@ function App() {
         );
     }
 
-    function addStartYear(year) {
-        if (endYear < year)
-            alert("End Year can't be lesser than start year!!!");
-        else setStartYear(year);
-    }
-
-    function addEndYear(year) {
-        if (startYear > year) alert("Start Year can't be ahead of End year!!!");
-        else setEndYear(year);
-    }
-
     return (
         <div id="App">
             <div id="Data_Selector_Section">
@@ -63,11 +52,11 @@ function App() {
                     paramList={Array.from(paramSet)}
                     addParam={addParam}
                     removeParam={removeParam}
-                    allParam={APP_DATA.gases}
+                    allParams={APP_DATA.params}
                 />
                 <TimePeriod
-                    addStartYear={addStartYear}
-                    addEndYear={addEndYear}
+                    setStartYear={setStartYear}
+                    setEndYear={setEndYear}
                     allYears={APP_DATA.years}
                 />
             </div>
