@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import Chart from "./components/chart/chart";
 import Map from "./components/map/map";
-import CountrySelector from "./components/data_input/country_selector";
-import ParamSelector from "./components/data_input/param_selector";
+//import CountrySelector from "./components/data_input/country_selector";
+//import ParamSelector from "./components/data_input/param_selector";
+import DataSelector from "./components/data_input/data_selector";
 import TimePeriod from "./components/data_input/time_period";
 import "./App.css";
-let APP_DATA = require("./final_data.json");
+let Clean_Data = require("./clean_data.json");
 
 function App() {
-    const [countrySet, setCountrySet] = useState(new Set());    // using set to avoid duplicates
+    const [countrySet, setCountrySet] = useState(new Set()); // using set to avoid duplicates
     const [paramSet, setParamSet] = useState(new Set());
     const [startYear, setStartYear] = useState("1990");
     const [endYear, setEndYear] = useState("1990");
@@ -40,8 +41,8 @@ function App() {
     }
 
     // effect after mounting
+    // Retrieves state from the URL after mounting, only if available.
     useEffect(() => {
-        // Retrieves state from the URL after mounting, only if available.
         let urlState = getStateFromUrl();
         if (Object.keys(urlState).length > 1) {
             setCountrySet(new Set(JSON.parse(urlState.countryList)));
@@ -72,36 +73,51 @@ function App() {
     return (
         <div id="App">
             <div id="Data_Selector_Section">
+                <DataSelector
+                    flag="Country"
+                    dataList={Array.from(countrySet)}
+                    addData={addCountry}
+                    removeData={removeCountry}
+                    allData={Object.keys(Clean_Data.data)}
+                />
+                <DataSelector
+                    flag="Parameter"
+                    dataList={Array.from(paramSet)}
+                    addData={addParam}
+                    removeData={removeParam}
+                    allData={Clean_Data.params}
+                />
+                {/*
                 <CountrySelector
                     countryList={Array.from(countrySet)}
                     addCountry={addCountry}
                     removeCountry={removeCountry}
-                    allCountries={Object.keys(APP_DATA.data)}
+                    allCountries={Object.keys(Clean_Data.data)}
                 />
                 <ParamSelector
                     paramList={Array.from(paramSet)}
                     addParam={addParam}
                     removeParam={removeParam}
-                    allParams={APP_DATA.params}
-                />
+                    allParams={Clean_Data.params}
+                />*/}
                 <TimePeriod
                     startYear={startYear}
                     endYear={endYear}
                     setStartYear={setStartYear}
                     setEndYear={setEndYear}
-                    allYears={APP_DATA.years}
+                    allYears={Clean_Data.years}
                 />
             </div>
             <div id="Visualiser">
                 <Chart
-                    DATA={APP_DATA.data}
+                    DATA={Clean_Data.data}
                     countryList={Array.from(countrySet)}
                     paramList={Array.from(paramSet)}
                     startYear={startYear}
                     endYear={endYear}
                 />
                 <Map
-                    DATA={APP_DATA.data}
+                    DATA={Clean_Data.data}
                     countryList={Array.from(countrySet)}
                     paramList={Array.from(paramSet)}
                     startYear={startYear}
