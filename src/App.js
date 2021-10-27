@@ -38,6 +38,22 @@ function App() {
                 new Set([...prevParamSet].filter((elem) => elem !== param))
         );
     }
+    useEffect(() => {
+        let urlState = getStateFromUrl();
+        setCountrySet(new Set(urlState.countryList));
+        setParamSet(new Set(urlState.paramList));
+        setStartYear(urlState.startYear);
+        setEndYear(urlState.endYear);
+    }, []);
+
+    useEffect(() => {
+        setStateInUrl(
+            Array.from(countrySet),
+            Array.from(paramSet),
+            startYear,
+            endYear
+        );
+    }, [countrySet, paramSet, startYear, endYear]);
 
     useEffect(() => {
         if (startYear > endYear) {
@@ -90,3 +106,22 @@ function App() {
 }
 
 export default App;
+
+function getStateFromUrl() {
+    let url = window.location.search;
+    var query = url.substr(1);
+    var result = {};
+    query.split("&").forEach(function (part) {
+        var item = part.split("=");
+        result[item[0]] = decodeURIComponent(item[1]);
+    });
+    return result;
+}
+
+function setStateInUrl(countryList, paramList, startYear, endYear) {
+    let urlState = `/?`;
+    urlState += `countryList=[${countryList}]`;
+    urlState += `&paramList=[${paramList}]`;
+    urlState += `&startYear=${startYear}&endYear=${endYear}`;
+    window.history.pushState({}, "", urlState);
+}
