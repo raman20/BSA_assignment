@@ -27,6 +27,6 @@
         ... ,
         ...
     },
-    "gases": ["gas1, gase2, ...."],
+    "params": ["gas1, gase2, ...."],
     "years": [year1, year2, ...."]
 }
