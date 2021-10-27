@@ -40,7 +40,10 @@ function App() {
     }
 
     useEffect(() => {
-        console.log(startYear, endYear);
+        if (startYear > endYear) {
+            alert("End Year can't be lesser than start year!!!");
+            setEndYear(startYear);
+        }
     }, [startYear, endYear]);
 
     return (
@@ -59,6 +62,8 @@ function App() {
                     allParams={APP_DATA.params}
                 />
                 <TimePeriod
+                    startYear={startYear}
+                    endYear={endYear}
                     setStartYear={setStartYear}
                     setEndYear={setEndYear}
                     allYears={APP_DATA.years}

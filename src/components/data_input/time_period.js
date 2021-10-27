@@ -1,23 +1,11 @@
 import "./style.css";
-import { useRef } from "react";
 
 export default function TimePeriod(props) {
-    let startYearRef = useRef(null);
-    let endYearRef = useRef(null);
-
     function setStartYear(event) {
-        let inputYear = event.target.value;
-        if (endYearRef.current.value < inputYear) {
-            endYearRef.current.value = inputYear;
-        }
         props.setStartYear(event.target.value);
     }
 
     function setEndYear(event) {
-        let inputYear = event.target.value;
-        if (startYearRef.current.value > inputYear) {
-            endYearRef.current.value = startYearRef.current.value;
-        }
         props.setEndYear(event.target.value);
     }
 
@@ -28,9 +16,9 @@ export default function TimePeriod(props) {
                     {" "}
                     Start Year{" "}
                     <select
-                        defaultValue="1990"
+                        id="startYear"
+                        value={props.startYear}
                         onChange={setStartYear}
-                        ref={startYearRef}
                     >
                         {props.allYears.map((year) => (
                             <option key={year} value={year}>
@@ -45,9 +33,9 @@ export default function TimePeriod(props) {
                     {" "}
                     End Year{" "}
                     <select
-                        defaultValue="1990"
+                        id="endYear"
+                        value={props.endYear}
                         onChange={setEndYear}
-                        ref={endYearRef}
                     >
                         {props.allYears.map((year) => (
                             <option key={year} value={year}>
