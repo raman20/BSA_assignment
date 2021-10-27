@@ -81,5 +81,5 @@ export default function Map(props) {
 }
 
 function Msg(props) {
-    return <div>{props.msg ? props.msg : "Chart loading...."}</div>;
+    return <div>{props.msg ? props.msg : "Map loading...."}</div>;
 }

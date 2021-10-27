@@ -49,7 +49,7 @@ export default function LineChart(props) {
         props.endYear,
     ]);
     return (
-        <div>
+        <div style={{"width":"50%"}}>
             {msg ? (
                 <Msg msg={msg} />
             ) : (
