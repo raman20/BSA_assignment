@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Chart from "./components/chart/chart";
 import Map from "./components/map/map";
 import CountrySelector from "./components/data_input/country_selector";
@@ -38,6 +38,10 @@ function App() {
                 new Set([...prevParamSet].filter((elem) => elem !== param))
         );
     }
+
+    useEffect(() => {
+        console.log(startYear, endYear);
+    }, [startYear, endYear]);
 
     return (
         <div id="App">
