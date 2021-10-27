@@ -10,8 +10,8 @@ let APP_DATA = require("./final_data.json");
 function App() {
     const [countrySet, setCountrySet] = useState(new Set());
     const [paramSet, setParamSet] = useState(new Set());
-    const [startYear, setStartYear] = useState(1990);
-    const [endYear, setEndYear] = useState(1990);
+    const [startYear, setStartYear] = useState("1990");
+    const [endYear, setEndYear] = useState("1990");
 
     function addCountry(countryName) {
         setCountrySet(
@@ -40,10 +40,12 @@ function App() {
     }
     useEffect(() => {
         let urlState = getStateFromUrl();
-        setCountrySet(new Set(urlState.countryList));
-        setParamSet(new Set(urlState.paramList));
-        setStartYear(urlState.startYear);
-        setEndYear(urlState.endYear);
+        if (Object.keys(urlState).length > 1) {
+            setCountrySet(new Set(JSON.parse(urlState.countryList)));
+            setParamSet(new Set(JSON.parse(urlState.paramList)));
+            setStartYear(urlState.startYear);
+            setEndYear(urlState.endYear);
+        }
     }, []);
 
     useEffect(() => {
@@ -110,12 +112,12 @@ export default App;
 function getStateFromUrl() {
     let url = window.location.search;
     var query = url.substr(1);
-    var result = {};
+    var urlState = {};
     query.split("&").forEach(function (part) {
         var item = part.split("=");
-        result[item[0]] = decodeURIComponent(item[1]);
+        urlState[item[0]] = decodeURIComponent(item[1]);
     });
-    return result;
+    return urlState;
 }
 
 function setStateInUrl(countryList, paramList, startYear, endYear) {
