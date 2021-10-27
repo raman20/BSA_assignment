@@ -2,12 +2,23 @@ import Chart from "react-google-charts";
 import { useEffect, useState } from "react";
 
 export default function LineChart(props) {
+     /**
+      * In case of Line Chart Visualisation, There are two possible cases :- 
+      * 
+      * 1. Single Country and single/multiple Parameters
+      *     
+      * 2. Multiple Country and single Params.
+      *     
+      * It is not possible to plot Line chart for multiple countries and multiple params.  
+      */
     const [chartData, setChartData] = useState();
     const [msg, setMsg] = useState("Chart -> please Select countries and Parameters!!!");
 
     useEffect(() => {
-        if (props.countryList.length && props.paramList.length) {
+        if (props.countryList.length > 0 && props.paramList.length > 0) {
             setMsg("");
+
+            // Case 1
             if (props.countryList.length === 1) {
                 setChartData(
                     coordinateGenerator(
@@ -19,9 +30,9 @@ export default function LineChart(props) {
                         "country"
                     )
                 );
-            } else if (
-                props.countryList.length > 1 &&
-                props.paramList.length === 1
+            }
+            // Case 2 
+            else if (props.countryList.length > 1 && props.paramList.length === 1
             ) {
                 setChartData(
                     coordinateGenerator(
@@ -30,13 +41,11 @@ export default function LineChart(props) {
                         props.DATA,
                         props.startYear,
                         props.endYear,
-                        "gas"
+                        "param"
                     )
                 );
             } else {
-                setMsg(
-                    "Chart -> only select single Parameter for multiple countries!!!"
-                );
+                setMsg("Chart -> only select single Parameter for multiple countries!!!");
             }
         } else {
             setMsg("Chart -> Please Select Countries and Parameters!!!");
@@ -68,14 +77,20 @@ function Msg(props) {
     return <div>{props.msg ? props.msg : "Chart loading...."}</div>;
 }
 
-function coordinateGenerator(
-    singlParam,
-    multiParam,
-    DATA,
-    startYear,
-    endYear,
-    flag
-) {
+/**
+ * Returns Data for Line Chart Plotting according to the Possible Plotting scenarios
+ * 
+ * @param {string[]} singleParam 
+ * @param {string[]} multiParam 
+ * @param {Object} DATA 
+ * @param {string} startYear 
+ * @param {string} endYear 
+ * @param {string} flag 
+ * @returns Object
+ */
+function coordinateGenerator(singleParam, multiParam, DATA, startYear, endYear, flag) {
+   
+    // Google Charts LineChart Properties
     let chartProps = {
         coordinates: [],
         options: {
@@ -83,21 +98,31 @@ function coordinateGenerator(
                 title: "Time Period",
             },
             vAxis: {
-                title: "Gas Emission Value",
+                title: "Total Emission Value",
             },
         },
     };
 
-    let param = singlParam[0];
+    let param = singleParam[0];
+
+    // labels for Chart
     let chartLabels = ["x"].concat(multiParam);
     chartProps.coordinates.push(chartLabels);
 
+    // Calculating Total Value between Selected time Period
     for (let year = startYear; year <= endYear; year++) {
         let cord = [year];
         for (let i of multiParam) {
             let emission;
-            if (flag === "gas") emission = DATA[i][year][param];
-            else emission = DATA[param][year][i];
+
+            // Flag for correct position for properties
+            if (flag === "param") { 
+                emission = DATA[i][year][param];
+            }
+            else {
+                emission = DATA[param][year][i];
+            }
+            
             emission = emission !== undefined ? emission : 0;
             cord.push(emission);
         }

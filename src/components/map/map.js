@@ -1,5 +1,6 @@
 import { Chart } from "react-google-charts";
 import { useState, useEffect } from "react";
+
 export default function Map(props) {
     const [mapData, setMapData] = useState();
     const [msg, setMsg] = useState(
@@ -7,8 +8,9 @@ export default function Map(props) {
     );
 
     useEffect(() => {
+        // Google Charts Map properties
         let mapProps = {
-            coordinates: [],
+            data: [],
             options: {
                 colorAxis: { colors: ["#00853f", "black", "#e31b23"] },
                 backgroundColor: "#81d4fa",
@@ -17,38 +19,43 @@ export default function Map(props) {
             apiKey: "AIzaSyA67LsS4IalSYFyI4ZnT3Hj0q0MpRIqbfE",
         };
 
-        if (props.countryList.length && props.paramList.length) {
+        if (props.countryList.length > 0 && props.paramList.length > 0) {
             if (props.paramList.length > 2) {
+                /*
+                    Google Charts Geo Maps Doesn't Allow to specify more than 
+                    2 parameters while marking countries.  
+                */
                 setMsg(
                     "Map -> Sorry, Google Geo Chart dont Support more than 2 parameters!!!"
                 );
                 return;
             }
 
+            // labels for marking on Geo Map
             let labels = ["Country"].concat(
-                ...props.paramList.map((elem) => `Total ${elem}`)
+                ...props.paramList.map((param) => `Total ${param}`)
             );
-            mapProps.coordinates.push(labels);
-            for (let country of props.countryList) {
-                let cord = new Array(props.paramList.length + 1).fill(0);
-                if (country === "United States of America") cord[0] = "US";
-                else if (country === "Russian Federation") cord[0] = "Russia";
-                else if (country === "United Kingdom") cord[0] = "GB";
-                else cord[0] = country;
+            mapProps.data.push(labels);
 
-                for (
-                    let year = props.startYear;
-                    year <= props.endYear;
-                    year++
-                ) {
+            // Calculating Total Value of Parameters for Selected Countries between Selected time Period
+            for (let country of props.countryList) {
+                let dataPoint = new Array(1 + props.paramList.length).fill(0);  // ["CountryName", ...Params];
+
+                // Setting Country names according to Google Charts GeoMap compatibility
+                if (country === "United States of America") dataPoint[0] = "US";
+                else if (country === "Russian Federation") dataPoint[0] = "Russia";
+                else if (country === "United Kingdom") dataPoint[0] = "GB";
+                else dataPoint[0] = country;
+
+                for (let year = props.startYear; year <= props.endYear; year++) {
+                    // aggregating total Emission
                     for (let j = 0; j < props.paramList.length; j++) {
-                        let emission =
-                            props.DATA[country][year][props.paramList[j]];
+                        let emission = props.DATA[country][year][props.paramList[j]];
                         emission = emission !== undefined ? emission : 0;
-                        cord[j + 1] += emission;
+                        dataPoint[j + 1] += emission;
                     }
                 }
-                mapProps.coordinates.push(cord);
+                mapProps.data.push(dataPoint);
             }
             setMapData(mapProps);
             setMsg("");
@@ -70,7 +77,7 @@ export default function Map(props) {
                 <Chart
                     chartType="GeoChart"
                     loader={<Msg />}
-                    data={mapData.coordinates}
+                    data={mapData.data}
                     options={mapData.options}
                     mapsApiKey={mapData.apiKey}
                 />
