@@ -59,8 +59,8 @@ function App() {
 
     useEffect(() => {
         if (startYear > endYear) {
-            alert("End Year can't be lesser than start year!!!");
             setEndYear(startYear);
+            //alert("End Year can't be lesser than start year!!!");
         }
     }, [startYear, endYear]);
 
