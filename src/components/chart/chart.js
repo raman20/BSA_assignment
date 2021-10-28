@@ -80,6 +80,9 @@ function Msg(props) {
 /**
  * Returns Data for Line Chart Plotting according to the Possible Plotting scenarios
  * 
+ * if there is single country or single parameter then singleParam value will be accordingly.
+ * same for multiParam.
+ * 
  * @param {string[]} singleParam 
  * @param {string[]} multiParam 
  * @param {Object} DATA 
