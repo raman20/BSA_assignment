@@ -70,7 +70,7 @@ import TimePeriod from "./Components/Data Input/time_period"
 | endYear | String | yes |  |
 | setStartYear | Function | yes |  |
 | setEndYear | Function | yes |  |
-| allYears | Function| yes |  |
+| allYears | Function| yes |  All years available to select|
 <hr/><br/><br/>
 
 
