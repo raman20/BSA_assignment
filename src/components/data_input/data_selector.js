@@ -1,6 +1,8 @@
 import "./style.css";
 
 export default function DataSelector(props) {
+    
+    // setting maping function for rendering data option for dropdown from dataList prop based on flag prop.
     let mapper;
     if (props.flag === "Country") {
         mapper = (country) => {
@@ -61,12 +63,10 @@ function DataDropdown(props) {
 
     return (
         <div className="Data_Dropdown">
-            <form>
-                <select onChange={addData}>
-                    <option value="">Select {props.flag}</option>
-                    {props.allData.map(props.mapper)}
-                </select>
-            </form>
+            <select onChange={addData}>
+                <option value="">Select {props.flag}</option>
+                {props.allData.map(props.mapper)}
+            </select>
         </div>
     );
 }
