@@ -21,10 +21,11 @@ node data_cleaner.js
 ```
 4. This will make a ```clean_data.json``` file with cleaned data, move this file to ```./src``` dir.
 
-5. run the app @ localhost:3000 -><br>
+5. run the app -><br>
 ```
 npm start
 ```
+this will run the app on localhost:3000
 
 # Main React Components
 
