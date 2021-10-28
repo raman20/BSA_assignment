@@ -45,7 +45,7 @@ function DataViewer(props) {
     return (
         <div className="Data_Viewer">
             {props.dataList.map((element) => (
-                <Data
+                <DataLabel
                     key={element}
                     dataName={element}
                     removeData={props.removeData}
@@ -71,7 +71,8 @@ function DataDropdown(props) {
     );
 }
 
-function Data(props) {
+// Shows selected data in DataViewer
+function DataLabel(props) {
     let removeData = (event) => {
         props.removeData(event.target.innerText.split(" x")[0]);
     };
