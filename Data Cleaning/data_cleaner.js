@@ -56,14 +56,14 @@ function cleanData(raw_data) {
     raw_data.forEach((elem) => {
         let [country, year, value, category] = elem;
         if (!clean_data.data.hasOwnProperty(country)) {
-            clean_data.data[country] = {};
+            clean_data.data[country] = {}; // creating property if not available
         }
 
         if (!clean_data.data[country].hasOwnProperty(year)) {
-            clean_data.data[country][year] = {};
+            clean_data.data[country][year] = {}; // creating property if not available
         }
 
-        let gasData = category.match(regex);
+        let gasData = category.match(regex); // regex matching
         let gas = gasData[0];
         if (gas === "mix") {
             gas = "hfcs_pfcs_mix";
