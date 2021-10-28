@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
-import Chart from "./components/chart/chart";
-import Map from "./components/map/map";
-import DataSelector from "./components/data_input/data_selector";
-import TimePeriod from "./components/data_input/time_period";
 import "./App.css";
+import { useEffect, useState } from "react";
+
+import DataSelector from "./Components/Data Input/data_selector";
+import TimePeriod from "./Components/Data Input/time_period";
+import DataVisualiser from "./Components/Data Visualiser/data_visualiser";
+
 let Clean_Data = require("./clean_data.json");
 
+
 export default function App() {
-    const [countrySet, setCountrySet] = useState(new Set()); // using set to avoid duplicates
+    const [countrySet, setCountrySet] = useState(new Set()); // using Set to avoid duplicates
     const [paramSet, setParamSet] = useState(new Set());
     const [startYear, setStartYear] = useState("1990");
     const [endYear, setEndYear] = useState("1990");
@@ -38,7 +40,6 @@ export default function App() {
         );
     }
 
-    // effect after mounting
     // Retrieves state from the URL after mounting, only if available.
     useEffect(() => {
         let urlState = getStateFromUrl();
@@ -50,7 +51,7 @@ export default function App() {
             
             // filtering out parameters that are not available in Clean Data
             let paramList = JSON.parse(urlState.paramList);
-            paramList = paramList.filter((item)=> Clean_Data.params.indexOf(item));
+            paramList = paramList.filter((item)=> Clean_Data.params.indexOf(item) !== -1);
 
             setCountrySet(new Set(countryList));
             setParamSet(new Set(paramList));
@@ -67,15 +68,13 @@ export default function App() {
             startYear,
             endYear
         );
-    }, [countrySet, paramSet, startYear, endYear]);
 
-    // checking if start year is lesser or not
-    // else can't be able to plot data on map & chart
-    useEffect(() => {
+        // checking if start year is lesser or not
+        // else can't be able to plot data on map & chart
         if (startYear > endYear) {
             setEndYear(startYear);
         }
-    }, [startYear, endYear]);
+    }, [countrySet, paramSet, startYear, endYear]);
 
     return (
         <div id="App">
@@ -102,29 +101,20 @@ export default function App() {
                     allYears={Clean_Data.years}
                 />
             </div>
-            <div id="Visualiser">
-                <Chart
+            <DataVisualiser  
                     DATA={Clean_Data.data}
                     countryList={Array.from(countrySet)}
                     paramList={Array.from(paramSet)}
                     startYear={startYear}
                     endYear={endYear}
-                />
-                <Map
-                    DATA={Clean_Data.data}
-                    countryList={Array.from(countrySet)}
-                    paramList={Array.from(paramSet)}
-                    startYear={startYear}
-                    endYear={endYear}
-                />
-            </div>
+            />
         </div>
     );
 }
 
 // extracts and parse the URL encoded query parameters
 function getStateFromUrl() {
-    let query = window.location.search; //-> "/?param1=value&param2=val..."
+    let query = window.location.search; //-> "?param1=value&param2=value&..."
     query = query.substr(1);
 
     let urlState = {};
@@ -134,7 +124,6 @@ function getStateFromUrl() {
     });
     return urlState;
 }
-
 
 /**
  * pushing the state changes to url using history API 

@@ -38,8 +38,8 @@ function cleanData(raw_data) {
 
     let clean_data = {
         data: {},
-        params: new Set(),
-        years: new Set(),
+        params: [],
+        years: [],
     };
     let allParams = new Set();   //storing all gases, for rendering dropdowns 
     let allYears = new Set();    //storing all years 
