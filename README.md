@@ -32,7 +32,7 @@ npm start
 
 ### Usage
 ```
-import DataSelector from './src/components/data_input/data_selector';
+import DataSelector from './src/Components/Data Input/data_selector';
 
 <DataSelector />
 ```
@@ -55,7 +55,7 @@ import DataSelector from './src/components/data_input/data_selector';
 ## TimePeriod
 ### Usage
 ```
-import TimePeriod from "./components/data_input/time_period"
+import TimePeriod from "./Components/Data Input/time_period"
 
 <TimePeriod />
 ```
@@ -77,7 +77,7 @@ import TimePeriod from "./components/data_input/time_period"
 ## Chart
 ### Usage
 ```
-import Chart from './components/chart/chart';
+import Chart from './Components/Data Visualiser/Chart/chart';
 
 <Chart />
 ```
@@ -98,7 +98,7 @@ import Chart from './components/chart/chart';
 ## Map
 ### Usage
 ```
-import Map from './components/map/map';
+import Map from './Components/Data Visualiser/Map/map';
 
 <Map />
 ```
