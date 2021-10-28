@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import Chart from "./components/chart/chart";
 import Map from "./components/map/map";
-//import CountrySelector from "./components/data_input/country_selector";
-//import ParamSelector from "./components/data_input/param_selector";
 import DataSelector from "./components/data_input/data_selector";
 import TimePeriod from "./components/data_input/time_period";
 import "./App.css";
 let Clean_Data = require("./clean_data.json");
 
-function App() {
+export default function App() {
     const [countrySet, setCountrySet] = useState(new Set()); // using set to avoid duplicates
     const [paramSet, setParamSet] = useState(new Set());
     const [startYear, setStartYear] = useState("1990");
@@ -45,14 +43,23 @@ function App() {
     useEffect(() => {
         let urlState = getStateFromUrl();
         if (Object.keys(urlState).length > 1) {
-            setCountrySet(new Set(JSON.parse(urlState.countryList)));
-            setParamSet(new Set(JSON.parse(urlState.paramList)));
+
+            // filtering out countries that are not available in Clean Data
+            let countryList = JSON.parse(urlState.countryList);
+            countryList = countryList.filter((item) => Clean_Data.data.hasOwnProperty(item));
+            
+            // filtering out parameters that are not available in Clean Data
+            let paramList = JSON.parse(urlState.paramList);
+            paramList = paramList.filter((item)=> Clean_Data.params.indexOf(item));
+
+            setCountrySet(new Set(countryList));
+            setParamSet(new Set(paramList));
             setStartYear(urlState.startYear);
             setEndYear(urlState.endYear);
         }
     }, []);
 
-    // side Effect for reflecting app state to the URL
+    // reflecting app state changes to the URL
     useEffect(() => {
         setStateInUrl(
             Array.from(countrySet),
@@ -87,19 +94,6 @@ function App() {
                     removeData={removeParam}
                     allData={Clean_Data.params}
                 />
-                {/*
-                <CountrySelector
-                    countryList={Array.from(countrySet)}
-                    addCountry={addCountry}
-                    removeCountry={removeCountry}
-                    allCountries={Object.keys(Clean_Data.data)}
-                />
-                <ParamSelector
-                    paramList={Array.from(paramSet)}
-                    addParam={addParam}
-                    removeParam={removeParam}
-                    allParams={Clean_Data.params}
-                />*/}
                 <TimePeriod
                     startYear={startYear}
                     endYear={endYear}
@@ -128,8 +122,6 @@ function App() {
     );
 }
 
-export default App;
-
 // extracts and parse the URL encoded query parameters
 function getStateFromUrl() {
     let query = window.location.search; //-> "/?param1=value&param2=val..."
@@ -143,11 +135,20 @@ function getStateFromUrl() {
     return urlState;
 }
 
-// pushing the state changes to url using history API
+
+/**
+ * pushing the state changes to url using history API 
+ * 
+ * @param {string[]} countryList 
+ * @param {string[]} paramList 
+ * @param {string} startYear 
+ * @param {string} endYear 
+ */
 function setStateInUrl(countryList, paramList, startYear, endYear) {
     let urlState = `/?`;
     urlState += `countryList=${JSON.stringify(countryList)}`;
     urlState += `&paramList=${JSON.stringify(paramList)}`;
     urlState += `&startYear=${startYear}&endYear=${endYear}`;
+    
     window.history.pushState({}, "", urlState);
 }
