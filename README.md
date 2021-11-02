@@ -1,6 +1,7 @@
 # About
 
 A React App for visualisation of green house gases emission data for various countries. 
+This is the take home assignment given to me during the recruitment process at BLUE SKY ANALYTICS.
 
 # Setup
 
